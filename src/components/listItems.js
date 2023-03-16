@@ -12,6 +12,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturing';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import DevicesIcon from '@mui/icons-material/Devices';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 import { Link } from 'react-router-dom';
 import { NavigationButton } from './shared/NavigationButton';
 
@@ -52,24 +53,15 @@ export const mainListItems = (
         <ListItemText primary="Algorithm Selection" />
       </ListItemButton>
     </NavigationButton>
-    {/* <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton> */}
+
+    <NavigationButton path="/visualize">
+      <ListItemButton>
+        <ListItemIcon>
+          <AnalyticsIcon />
+        </ListItemIcon>
+        <ListItemText primary="Visualization tool" />
+      </ListItemButton>
+    </NavigationButton>
   </React.Fragment>
 );
 

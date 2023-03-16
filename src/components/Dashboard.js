@@ -19,6 +19,7 @@ import { HomePage } from './HomePage';
 import { SingleDevicePage } from './devices/SingleDevicePage';
 import { DataStudioPage } from './studio/DataStudioPage';
 import { AlgorithmSelectionPage } from './algorithms/AlgorithmSelectionPage';
+import { VisualizationPage } from './visualization/VisualizationPage';
 
 const drawerWidth = 240;
 
@@ -148,6 +149,7 @@ function DashboardContent() {
             <Route path="studio" element={<DataStudioPage />}/>
             <Route path="devices/:id" element={<SingleDevicePage />} />
             <Route path="algorithms/" element={<AlgorithmSelectionPage />} />
+            <Route path="visualize/" element={<VisualizationPage />} />
           </Routes>
           <Outlet/>
         </Box>
