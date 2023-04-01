@@ -1,3 +1,5 @@
+import { COLUMN_NAMES } from '../../constants/ColumnNames';
+
 export const dynamicColors = function() {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
@@ -5,7 +7,7 @@ export const dynamicColors = function() {
     return "rgb(" + r + "," + g + "," + b + ")";
  };
 
-export function prepareDataset(convertRawDataset, rawDataset, additionalName) {
+export function prepareDataset(rawDataset, additionalName) {
     const { labels, collector } = convertRawDataset(rawDataset);
     const datasets = Object.keys(collector).map((val) => {
       let color = dynamicColors();
@@ -21,3 +23,27 @@ export function prepareDataset(convertRawDataset, rawDataset, additionalName) {
       datasets: datasets,
     };
   }
+
+export const convertRawDataset = (dataset) => {
+  const fragmentSeries = dataset[COLUMN_NAMES.FRAGMENT_SERIES];
+  const time = dataset[COLUMN_NAMES.TIME];
+  const value = dataset[COLUMN_NAMES.VALUE];
+
+  const ids = Object.keys(time);
+  let collector = {};
+  let labels = new Set();
+
+  ids.forEach(id => {
+    if(!(fragmentSeries[id] in collector)){
+      collector[fragmentSeries[id]] = [];
+    }
+
+    collector[fragmentSeries[id]].push(value[id]);
+    labels.add(time[id]);
+  });
+
+  return {
+    labels: Array.from(labels),
+    collector: collector
+  }
+}

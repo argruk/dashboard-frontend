@@ -5,6 +5,7 @@ export const TabView = ({value, index, children}) => {
         <div
           role="tabpanel"
           hidden={value !== index}
+          style={{width: 'inherit', height: 'inherit'}}
           id={`vertical-tabpanel-${index}`}
           aria-labelledby={`vertical-tab-${index}`}
         >
