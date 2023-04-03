@@ -1,6 +1,5 @@
 export function replaceSpecialCharacters(attribute) {
     // replace the single quotes
-    console.log('i fire');
        attribute = attribute.replace(/'/g, "''");
   
        attribute = attribute.replace(/%/g, "%25");

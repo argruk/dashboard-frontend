@@ -23,7 +23,6 @@ export const VisualizationPage = () => {
         let returnValue = true;
         neededFields.forEach(field => {
             if (!(field in dataSelectors)) {
-                console.log(field, field in dataSelectors)
                 returnValue = false;
             }
         });

@@ -1,10 +1,13 @@
 import { COLUMN_NAMES } from '../../constants/ColumnNames';
 
-export const dynamicColors = function() {
+export const dynamicColors = function(opacity=1) {
     var r = Math.floor(Math.random() * 255);
     var g = Math.floor(Math.random() * 255);
     var b = Math.floor(Math.random() * 255);
-    return "rgb(" + r + "," + g + "," + b + ")";
+    if(opacity<1){
+      return ["rgb(" + r + "," + g + "," + b + "," + opacity + ")", "rgb(" + r + "," + g + "," + b + "," + 1 + ")"]
+    }
+    return "rgb(" + r + "," + g + "," + b + "," + opacity + ")";
  };
 
 export function prepareDataset(rawDataset, additionalName) {

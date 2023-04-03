@@ -8,6 +8,7 @@ export const DataSelectors = ({allowedDataSelectors, setDataSelectors}) => {
     const [datasetName, setDatasetName] = useState('');
     const [measurementTypesExisting, setMeasurementTypesExisting] = useState([]);
     const [measurementTypesSelected, setMeasurementTypesSelected] = useState([]);
+    const [singleMeasurementTypeSelected, setSingleMeasurementTypeSelected] = useState("");
     const [timeAggregationSelected, setTimeAggregationSelected] = useState('1min');
 
     useEffect(()=>{}, [allowedDataSelectors]);
@@ -17,6 +18,7 @@ export const DataSelectors = ({allowedDataSelectors, setDataSelectors}) => {
             "datasetName": datasetName,
             "measurementTypes": measurementTypesSelected,
             "timeAggregate": timeAggregationSelected,
+            "measurementType": JSON.stringify([singleMeasurementTypeSelected]),
         };
         setDataSelectors(newSelectors);
     };
@@ -34,6 +36,10 @@ export const DataSelectors = ({allowedDataSelectors, setDataSelectors}) => {
         } = event;
         setMeasurementTypesSelected(typeof value === 'string' ? value.split(',') : value);
       };
+
+    const handleSingleMeasurementTypeChange = (event) => {
+        setSingleMeasurementTypeSelected(event.target.value);
+    }
 
     const handleDatasetNameChange = (event) => {
         setDatasetName(event.target.value);
@@ -87,6 +93,26 @@ export const DataSelectors = ({allowedDataSelectors, setDataSelectors}) => {
                             {measurementTypesExisting.map((option, idx) => {
                                 return <MenuItem value={option} key={`measurement-type-item-${idx}`}>
                                         <Checkbox checked={measurementTypesSelected.indexOf(option) > -1} />
+                                        {option}
+                                    </MenuItem>
+                            })}
+                        </Select>
+                    </FormControl>
+                </Grid>
+            )}
+            {shouldDisplay("measurementType") && (
+                <Grid item xs={3}>
+                    <FormControl fullWidth disabled={disabled}>
+                        <InputLabel id={`measurement-type-selection-input-label`}>{"Measurement type"}</InputLabel>
+                        <Select
+                            labelId={`measurement-type-selection-input-label`}
+                            id={`measurement-type-selection-input`}
+                            value={singleMeasurementTypeSelected}
+                            input={<OutlinedInput label={"Measurement type"} />}
+                            onChange={handleSingleMeasurementTypeChange}
+                        >
+                            {measurementTypesExisting.map((option, idx) => {
+                                return <MenuItem value={option} key={`measurement-type-selection-item-${idx}`}>
                                         {option}
                                     </MenuItem>
                             })}
