@@ -1,4 +1,4 @@
-import { Grid, Divider, TextField, MenuItem, Select, Button } from '@mui/material'
+import { Grid, Divider, TextField, MenuItem, Select, Button, InputLabel, OutlinedInput } from '@mui/material'
 import React from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { useState, useEffect } from 'react';
@@ -9,10 +9,12 @@ import {TransferList} from '../shared/TransferList';
 import { FindDeviceById, FindDeviceByName } from '../../services/searchService';
 import { replaceSpecialCharacters } from '../../helpers/EncodingHelpers';
 import { DeviceMeasurementTypes } from './DeviceMeasurementTypes';
+import { DatasetDeviceInfo } from './DatasetDeviceInfo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DownloadNewDataset } from '../../services/datasetService';
+import { DownloadNewDataset, GetAllDatasets } from '../../services/datasetService';
 import { DatasetMeasurementTypes } from './DatasetMeasurementTypes';
+import { DatasetMeasurementTypeDeviceInfo } from './DatasetMeasurementTypeDeviceInfo';
 
 
 export const DataStudioPage = () => {
@@ -25,6 +27,14 @@ export const DataStudioPage = () => {
     const [dateTimeFrom, setDateTimeFrom] = useState(new Date(Date.now()));
     const [dateTimeTo, setDateTimeTo] = useState(new Date(Date.now()));
     const [filenameInput, setFilenameInput] = useState("");
+    const [datasetSelected, setDatasetSelected] = useState(undefined);
+    const [datasetNames, setDatasetNames] = useState([]);
+
+
+    useEffect(() => {
+        GetAllDatasets().then( res => setDatasetNames(res.data));
+    }, [])
+    
 
     useEffect(() => {
       var newDevicesXMeasurementTypes = {};
@@ -36,6 +46,10 @@ export const DataStudioPage = () => {
       setDevicesXMeasurementTypes(newDevicesXMeasurementTypes);
 
     }, [right]);
+
+    const handleDatasetInfoSelect = (event) => {
+        setDatasetSelected(event.target.value);
+    }
 
     const handleSearchInputChange = (event) => {
         setSearchInput(event.target.value);
@@ -161,11 +175,29 @@ export const DataStudioPage = () => {
                     <Divider orientation="horizontal" flexItem />
                 </Grid>
                 <Grid item xs={2}>
-                    Select data
+                    Dataset information:
                 </Grid>
-                <Grid item xs={10}>
+                <Grid item xs={8}>
                     {/* {right && <DeviceMeasurementTypes devicesXMeasurementTypes={Object.assign({}, devicesXMeasurementTypes)} />} */}
-                    <DatasetMeasurementTypes datasetName={"new_set"}/>
+                    {datasetSelected && <DatasetMeasurementTypes datasetName={datasetSelected}/>}
+                    {datasetSelected && <DatasetDeviceInfo datasetName={datasetSelected} />}     
+                    {datasetSelected && <DatasetMeasurementTypeDeviceInfo datasetName={datasetSelected} />}
+                </Grid>
+                <Grid item xs={2}>
+                    <InputLabel id={`dataset-information-label`}>{"Dataset"}</InputLabel>
+                    <Select
+                        labelId={`dataset-information-label`}
+                        id={`dataset-information`}
+                        value={datasetSelected}
+                        input={<OutlinedInput label={"Dataset"} />}
+                        onChange={handleDatasetInfoSelect}
+                    >
+                        {datasetNames.map((option, idx) => {
+                            return <MenuItem value={option} key={`dataset-information-item-${idx}`}>
+                                    {option}
+                                </MenuItem>
+                        })}
+                    </Select>
                 </Grid>
             </Grid>
         </div>

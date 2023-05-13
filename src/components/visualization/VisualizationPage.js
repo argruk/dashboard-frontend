@@ -10,6 +10,12 @@ export const VisualizationPage = () => {
 
     const handleChange = (event, newValue) => {
         setVisualizationMethod(newValue);
+        setDataSelectors({
+            "datasetName": undefined,
+            "measurementTypes": undefined,
+            "timeAggregate": undefined,
+            "measurementType": undefined,
+        });
     };
 
     function a11yProps(index) {
@@ -32,7 +38,7 @@ export const VisualizationPage = () => {
     return (
         <div>
             <Grid container>
-                <Grid item xs={3} bgcolor={"green"}>
+                <Grid item xs={2} bgcolor={"green"}>
                     <Tabs
                         orientation="vertical"
                         variant="scrollable"
@@ -47,7 +53,7 @@ export const VisualizationPage = () => {
                     </Tabs>
 
                 </Grid>
-                <Grid item container xs={9}>
+                <Grid item container xs={10}>
                     {VisualizationMethods.map( (method, idx) => {
                         return (
                             <TabView value={visualizationMethod} index={idx} key={`visualization-method-render-${idx}`}>

@@ -63,10 +63,12 @@ export const MinMaxChart = ({datasetName, measurementTypes, timeAggregate}) => {
   }
 
   useEffect(() => {
-    composeDataset().then(res => {
-      setData(res);
-      setLoading(false);
-    })
+    if(datasetName && measurementTypes && timeAggregate) {
+      composeDataset().then(res => {
+        setData(res);
+        setLoading(false);
+      })
+    }
   }, [datasetName, measurementTypes, timeAggregate])
   
   return (

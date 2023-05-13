@@ -41,7 +41,9 @@ export const DoughnutChart = ({datasetName}) => {
   };
 
   useEffect(() => {
-    composeDataset().then( res => setData(res));
+    if(datasetName){
+      composeDataset().then( res => setData(res));
+    }
   }, [datasetName]);
   
   return <Doughnut data={data} />;

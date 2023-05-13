@@ -66,7 +66,9 @@ export const MeanMeasurement = ({datasetName, measurementType, timeAggregate}) =
   };
 
   useEffect(() => {
-    composeDataset().then( res => {setData(res)});
+    if(datasetName && measurementType && timeAggregate){
+      composeDataset().then( res => {setData(res)});
+    }
   }, [datasetName, measurementType, timeAggregate]);
   
 

@@ -7,7 +7,7 @@ import { GetDatasetGroupedBy } from '../../services/datasetQueryService';
 const columns = [
     { field: "id", headerName: "ID", width: 50 },
     { field: "measurementType", headerName: "Measurement type", width: 300 },
-    { field: "numberOfMeasurements", headerName: "Number of measurements in dataset", width: 200 },
+    { field: "numberOfMeasurements", headerName: "Number of measurements in dataset" },
 ]
 
 function processMeasurementTypes(mtObj) {
@@ -32,7 +32,7 @@ export const DatasetMeasurementTypes = ({datasetName}) => {
   
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '75%', marginBottom: '5rem' }}>
       <DataGrid
         rows={datasetMeasurementTypes}
         columns={columns}
