@@ -12,7 +12,7 @@ import { DeviceMeasurementTypes } from './DeviceMeasurementTypes';
 import { DatasetDeviceInfo } from './DatasetDeviceInfo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DownloadNewDataset, GetAllDatasets } from '../../services/datasetService';
+import { DownloadNewDataset, DownloadNewDatasetWithMt, GetAllDatasets } from '../../services/datasetService';
 import { DatasetMeasurementTypes } from './DatasetMeasurementTypes';
 import { DatasetMeasurementTypeDeviceInfo } from './DatasetMeasurementTypeDeviceInfo';
 
@@ -29,6 +29,7 @@ export const DataStudioPage = () => {
     const [filenameInput, setFilenameInput] = useState("");
     const [datasetSelected, setDatasetSelected] = useState(undefined);
     const [datasetNames, setDatasetNames] = useState([]);
+    const [selectedMeasurementType, setSelectedMeasurementType] = useState(undefined);
 
 
     useEffect(() => {
@@ -57,6 +58,10 @@ export const DataStudioPage = () => {
 
     const handleFilenameInputChange = (event) => {
         setFilenameInput(event.target.value);
+    };
+
+    const handleSelectedMTInputChange = (event) => {
+        setSelectedMeasurementType(event.target.value);
     };
 
     const handleSearchParameterChange = (event) => {
@@ -94,7 +99,11 @@ export const DataStudioPage = () => {
     };
 
     const downloadClicked = () => {
-        DownloadNewDataset(filenameInput, dateTimeFrom, dateTimeTo);
+        if (selectedMeasurementType !== '' || selectedMeasurementType !== undefined) {
+            DownloadNewDatasetWithMt(filenameInput, dateTimeFrom, dateTimeTo, selectedMeasurementType);
+        } else {
+            DownloadNewDataset(filenameInput, dateTimeFrom, dateTimeTo);
+        }
     };
 
     return (
@@ -120,7 +129,15 @@ export const DataStudioPage = () => {
                             renderInput={(params) => <TextField {...params} />}
                         />
                         <TextField
-                            id="outlined-search"
+                            id="outlined-mt"
+                            label="Measurement type"
+                            type="text"
+                            variant="outlined"
+                            value={selectedMeasurementType}
+                            onChange={(e) => handleSelectedMTInputChange(e)}
+                        />
+                        <TextField
+                            id="outlined-filename"
                             label="Resulting dataset name"
                             type="text"
                             variant="outlined"

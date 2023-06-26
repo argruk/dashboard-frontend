@@ -27,7 +27,7 @@ export const AlgorithmSelectionPage = () => {
         </Grid>
         <Grid key={1} xs={9} bgcolor="red" item>
         <Typography  m="10px" variant="h4">Select algorithm and provide values</Typography>
-          <AlgorithmSelectionSection />
+          <AlgorithmSelectionSection newDatasetName={newDatasetName} selectedDataset={selectedDataset} />
         </Grid>
       </Grid>
   )
