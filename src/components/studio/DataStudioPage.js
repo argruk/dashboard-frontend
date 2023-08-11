@@ -16,6 +16,10 @@ import { DownloadNewDataset, DownloadNewDatasetWithMt, GetAllDatasets } from '..
 import { DatasetMeasurementTypes } from './DatasetMeasurementTypes';
 import { DatasetMeasurementTypeDeviceInfo } from './DatasetMeasurementTypeDeviceInfo';
 
+const subtractHour = (datetime) => {
+    datetime.setHours(datetime.getHours()-1)
+    return datetime
+};
 
 export const DataStudioPage = () => {
     const [searchParameter, setSearchParameter] = useState("name");
@@ -24,7 +28,7 @@ export const DataStudioPage = () => {
     const [right, setRight] = React.useState([]);
     const [searchInput, setSearchInput] = useState("");
     const [devicesXMeasurementTypes, setDevicesXMeasurementTypes] = useState({});
-    const [dateTimeFrom, setDateTimeFrom] = useState(new Date(Date.now()));
+    const [dateTimeFrom, setDateTimeFrom] = useState(subtractHour(new Date(Date.now())));
     const [dateTimeTo, setDateTimeTo] = useState(new Date(Date.now()));
     const [filenameInput, setFilenameInput] = useState("");
     const [datasetSelected, setDatasetSelected] = useState(undefined);
@@ -148,45 +152,6 @@ export const DataStudioPage = () => {
                             Download
                         </Button>
                     </LocalizationProvider>
-                </Grid>
-                <Grid item xs={2}>
-                    Select devices
-                </Grid>
-                <Grid item xs={10}>
-                    <TextField
-                        id="outlined-search"
-                        label="Find device"
-                        type="search"
-                        variant="outlined"
-                        value={searchInput}
-                        onChange={(e) => handleSearchInputChange(e)}
-                    />
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={searchParameter}
-                        label="Search by"
-                        onChange={(e) => handleSearchParameterChange(e)}
-                    >
-                        {SearchParameters.map((item) => {
-                            return <MenuItem value={item.toLowerCase()}>{item}</MenuItem>
-                        })}
-                    </Select>
-                    <Button onClick={() => searchClicked()}>
-                        Find
-                    </Button>
-                </Grid>
-                <Grid item xs={2}>
-                </Grid>
-                <Grid item xs={10}>
-                    <TransferList right={right}
-                                  left={left}
-                                  checked={checked}
-                                  setRight={setRight}
-                                  setLeft={setLeft}
-                                  setChecked={setChecked}
-                    
-                    />
                 </Grid>
                 <Grid item xs={12}>
                     <Divider orientation="horizontal" flexItem />

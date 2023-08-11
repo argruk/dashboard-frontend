@@ -38,7 +38,7 @@ export const VisualizationPage = () => {
     return (
         <div>
             <Grid container>
-                <Grid item xs={2} bgcolor={"green"}>
+                <Grid item xs={2}>
                     <Tabs
                         orientation="vertical"
                         variant="scrollable"
@@ -53,12 +53,13 @@ export const VisualizationPage = () => {
                     </Tabs>
 
                 </Grid>
-                <Grid item container xs={10}>
+                <Grid item xs={1}></Grid>
+                <Grid item container xs={9}>
                     {VisualizationMethods.map( (method, idx) => {
                         return (
                             <TabView value={visualizationMethod} index={idx} key={`visualization-method-render-${idx}`}>
-                                <Grid item xs={12} bgcolor={"yellow"}>
-                                    Data to visualize:
+                                <Grid item xs={12}>
+                                    <h2>Data to visualize:</h2>
                                     <DataSelectors allowedDataSelectors={method.dataSelectors} setDataSelectors={setDataSelectors} />
                                 </Grid>
                                 <Grid item xs={12}>

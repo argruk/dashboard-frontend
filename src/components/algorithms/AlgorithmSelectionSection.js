@@ -92,12 +92,11 @@ export const AlgorithmSelectionSection = ({newDatasetName, selectedDataset}) => 
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <Grid justifyContent="center" alignItems="center" container>
-                                            <Grid xs={3} bgcolor="pink" item>
+                                            <Grid xs={3} item>
                                                 {Object.keys(algorithmParameters).map(key => {
                                                     return <FormBuilder key={`algorithm-key-${element}-${key}`} {...algorithmParameters[key]} setControlledValue={setSpecificAlgorithmParameter} />
                                                 })}
                                             </Grid>
-                                            <Grid xs={8} sx={{height: "100%"}} bgcolor="orange" item>Description</Grid>
                                             <Grid xs={1} sx={{height: "100%"}} item onClick={() => runAlgorithm(element)}><Button color="success">Use</Button></Grid>
                                         </Grid>
                                         

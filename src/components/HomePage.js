@@ -2,6 +2,8 @@ import React from 'react'
 
 export const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <h2>
+      This is the project developed for "Data acquisition and preparation toolbox for Cumulocity-based solutions" thesis.
+    </h2>
   )
 }

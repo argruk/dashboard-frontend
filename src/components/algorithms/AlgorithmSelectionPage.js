@@ -20,12 +20,12 @@ export const AlgorithmSelectionPage = () => {
           <Typography>Select resulting dataset name: </Typography>
           <TextField value={newDatasetName} onChange={handleChange}></TextField>
         </Grid>
-        <Grid key={0} xs={3} bgcolor="yellow" item>
+        <Grid key={0} xs={3} item>
           <Typography m="10px" variant="h4">Select dataset</Typography>
 
           <DatasetSelectionSection selectedDataset={selectedDataset} setSelectedDataset={setSelectedDataset} />
         </Grid>
-        <Grid key={1} xs={9} bgcolor="red" item>
+        <Grid key={1} xs={9} item>
         <Typography  m="10px" variant="h4">Select algorithm and provide values</Typography>
           <AlgorithmSelectionSection newDatasetName={newDatasetName} selectedDataset={selectedDataset} />
         </Grid>
